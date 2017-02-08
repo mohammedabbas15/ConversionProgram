@@ -1,10 +1,8 @@
-// ConversionCalculator.cpp : Defines the entry point for the console application.
-//#include <stdafx.h>
 #include <iostream>
+#include <iomanip>
 #include <string>
-#include <ctime>  // used for time function
+#include <ctime>
 using namespace std;
-
 void printMeFirst(string name, string courseInfo, string version)
 {
 	cout << "Program written by: " << name << endl; // put your name here
@@ -16,6 +14,7 @@ void printMeFirst(string name, string courseInfo, string version)
 
 	cout << " Date: " << dt << endl; //prints the date
 }
+
 //function to organize all of the options listed on menu
 void options(string opt1, string opt2, string opt3, string opt4)
 {
@@ -24,15 +23,23 @@ void options(string opt1, string opt2, string opt3, string opt4)
 	cout << opt3 << endl; //option 3
 	cout << opt4 << endl; //option 4
 }
-//function for conversion of seconds->hours->minutes
+
 void secToHoursMin(double seconds)
 {
-	while (cin.fail())
+	do //keeps the user from entering a negativer number
+    {
+		cout << "Please enter a non-negative number\n";
+		cin >> seconds; //stores entry to be processed in while loops
+		
+    }
+	while (seconds < 0); //input must be > 0
+	
+	while (cin.fail()) //keeps from entering other characters
 	{
 		cout << "please enter a valid input: ";
 		cin.clear();
 		cin.ignore(256, '\n');
-		cin >> seconds;
+		cin >> seconds; //stores value for arithmetic proccessing
 	}
 	const int time = 60; //using this as base division factor
 	double minutes;
@@ -40,14 +47,21 @@ void secToHoursMin(double seconds)
 
 	minutes = seconds / time; //gives minutes from seconds
 	hours = (seconds / time) / time; //gives hours from seconds
-	cout << "there are: " << hours << " hours." << endl;
-	cout << "there are: " << minutes << " minutes." << endl;
-	cout << "there are: " << seconds << " seconds." << endl;
+	cout << "there are: " << setprecision(2) << hours << " hours." << endl;
+	cout << "there are: " << setprecision(2) << minutes << " minutes." << endl;
+	cout << "there are: " << setprecision(2) << seconds << " seconds." << endl;
 	//displays all of the measures from seconds
 }
 
 void farToCel(double convert) //conversion from far to cel
 {
+	do //keeps the user from entering a negativer number
+    {
+		cout << "Please enter a non-negative number\n";
+		cin >> convert; //stores entry to be processed in while loops
+		
+    }
+	while (convert < 0); //input must be > 0
 	while (cin.fail())
 	{
 		cout << "please enter a valid input: ";
@@ -57,12 +71,19 @@ void farToCel(double convert) //conversion from far to cel
 	}
 	const int num = 32;
 	convert = (convert - num) / 1.8;
-	cout << "that is " << convert << " degrees Celcius." << endl;
+	cout << "that is " << setprecision(2) << convert << " degrees Celcius." << endl;
 
 }
 
 void celToFar(double revert) //conversion from cel to far
 {
+	do //keeps the user from entering a negativer number
+    {
+		cout << "Please enter a non-negative number\n";
+		cin >> revert; //stores entry to be processed in while loops
+		
+    }
+	while (revert < 0); //input must be > 0
 	while (cin.fail())
 	{
 		cout << "please enter a valid input: ";
@@ -72,13 +93,12 @@ void celToFar(double revert) //conversion from cel to far
 	}
 	const int num = 32;
 	revert = (revert * 1.8) + num;
-	cout << "that is " << revert << " degrees Farenhiet." << endl;
+	cout << "that is " << setprecision(2) << revert << " degrees Farenhiet." << endl;
 }
-
 int main()
 {
-	char menuOpt;
-	int select;
+	char menuOpt; //the creation of the menu option variable
+	int select; //the input variable for options
 	do {
 
 		cout << "-----------------------------------------------------------\n";
@@ -87,6 +107,7 @@ int main()
 		cout << "Please select a option from the list...\n";
 		cout << "Only use positive integers (1 - 4): ";
 		cin >> select; //user selects the option
+		
 		if (select == 1)
 		{
 			cout << "Enter Seconds to convert: ";
@@ -116,5 +137,5 @@ int main()
 		cout << "Would you like to return to the menu (y/n): ";
 		cin >> menuOpt;
 		}
-while (menuOpt == 'y');
+while (menuOpt == 'y'); //loops the menu back to the begining
 }
